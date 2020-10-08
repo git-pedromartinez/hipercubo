@@ -11,7 +11,8 @@ package Main;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println("jiro");
-        System.out.println("soy pedro");
+        pantallaPrincipal vtn= new pantallaPrincipal();
+        vtn.pack();
+        vtn.setVisible(true);
     }
 }

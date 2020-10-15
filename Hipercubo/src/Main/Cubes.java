@@ -94,6 +94,7 @@ public class Cubes extends JPanel {
 
     public static void main(String[] args) {
         JFrame frame = new JFrame();
+        frame.setTitle("Simulacion de hipercubos");
         frame.setVisible(true);
         frame.setLayout(null);
         frame.setSize(900, 600);

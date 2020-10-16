@@ -12,11 +12,14 @@ package Main;
 public class Coordenadas {
     private int x=0;
     private int y=0;
+    private String name="";
 
-    public Coordenadas(int x, int y) {
+    public Coordenadas(String name,int x, int y) {
+        this.name = name;
         this.x = x;
         this.y = y;
-    }
+        
+    }   
 
     public Coordenadas() {
     }
@@ -37,5 +40,14 @@ public class Coordenadas {
     public void setY(int y) {
         this.y = y;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     
 }

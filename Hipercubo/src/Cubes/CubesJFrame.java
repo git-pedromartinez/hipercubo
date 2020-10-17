@@ -39,9 +39,9 @@ public class CubesJFrame extends javax.swing.JFrame {
         
         this.setLocationRelativeTo(null);
     }
-    public CubesJFrame(int[] camino_hipercubo) {
+    public CubesJFrame(int[] camino_hipercubo, String title) {
         initComponents();
-        this.setTitle("Simulacion de hipercubos");
+        this.setTitle("Simulacion de hipercubos camino:"+title);
         this.setVisible(true);
         this.setLayout(null);
         this.setSize(900, 600);

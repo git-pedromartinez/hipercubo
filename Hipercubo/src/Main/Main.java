@@ -17,7 +17,7 @@ public class Main {
         vtn.pack();
         vtn.setVisible(true);
         
-        int[] camino_hipercubo={15, 7,  6, 2};
-        new CubesJFrame(camino_hipercubo);
+//        int[] camino_hipercubo={15, 7,  6, 2};
+//        new CubesJFrame(camino_hipercubo);
     }
 }

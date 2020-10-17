@@ -6,8 +6,10 @@
 package Main;
 
 import Cubes.Cubes;
+import Cubes.CubesJFrame;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -19,7 +21,7 @@ public class pantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form pantallaPrincipal
      */
-    Cubes cubes;
+    CubesJFrame cubesJFrame;
     public pantallaPrincipal() {
         initComponents();
         this.setTitle("Hipercubos");
@@ -37,7 +39,6 @@ public class pantallaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jpCubos = new javax.swing.JPanel();
         jpControles = new javax.swing.JPanel();
         txtReceptor = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -50,19 +51,6 @@ public class pantallaPrincipal extends javax.swing.JFrame {
         txtRutas = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jpCubos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout jpCubosLayout = new javax.swing.GroupLayout(jpCubos);
-        jpCubos.setLayout(jpCubosLayout);
-        jpCubosLayout.setHorizontalGroup(
-            jpCubosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 543, Short.MAX_VALUE)
-        );
-        jpCubosLayout.setVerticalGroup(
-            jpCubosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 357, Short.MAX_VALUE)
-        );
 
         txtReceptor.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -97,7 +85,7 @@ public class pantallaPrincipal extends javax.swing.JFrame {
         jpControlesLayout.setHorizontalGroup(
             jpControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jpControlesLayout.createSequentialGroup()
-                .addContainerGap(70, Short.MAX_VALUE)
+                .addContainerGap(71, Short.MAX_VALUE)
                 .addGroup(jpControlesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jpControlesLayout.createSequentialGroup()
                         .addComponent(btnEnviar)
@@ -158,7 +146,7 @@ public class pantallaPrincipal extends javax.swing.JFrame {
             .addGroup(jpRutasLayout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jspRutas)
+                .addComponent(jspRutas, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -170,16 +158,10 @@ public class pantallaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jpControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jpRutas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jpCubos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jpCubos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jpControles, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,11 +194,8 @@ public class pantallaPrincipal extends javax.swing.JFrame {
                 camino[i]=Integer.parseInt (arreglo2[i].toString());
             }
             /////////////////////////////////////checar
-            cubes= new Cubes(camino);
-            cubes.setVisible(true);
-            cubes.setSize(this.jpCubos.getWidth(), this.jpCubos.getHeight());
-            cubes.setLocation(0, 0);
-            this.jpCubos.add(cubes);
+            cubesJFrame= new CubesJFrame(camino,Arrays.toString(camino));
+            
             ///////////////////////////////////////
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
@@ -502,7 +481,6 @@ public class pantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jpControles;
-    private javax.swing.JPanel jpCubos;
     private javax.swing.JPanel jpRutas;
     private javax.swing.JScrollPane jspRutas;
     private javax.swing.JTextField txtEmisor;

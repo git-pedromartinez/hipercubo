@@ -5,6 +5,8 @@
  */
 package Main;
 
+import Cubes.CubesJFrame;
+
 /**
  *
  * @author toni
@@ -14,5 +16,8 @@ public class Main {
         pantallaPrincipal vtn= new pantallaPrincipal();
         vtn.pack();
         vtn.setVisible(true);
+        
+        int[] camino_hipercubo={15, 7,  6, 2};
+        new CubesJFrame(camino_hipercubo);
     }
 }

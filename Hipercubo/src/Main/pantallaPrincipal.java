@@ -5,6 +5,7 @@
  */
 package Main;
 
+import Cubes.Cubes;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -18,6 +19,7 @@ public class pantallaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form pantallaPrincipal
      */
+    Cubes cubes;
     public pantallaPrincipal() {
         initComponents();
         this.setTitle("Hipercubos");
@@ -198,11 +200,24 @@ public class pantallaPrincipal extends javax.swing.JFrame {
         }else{
             ArrayList<String> caminos=obtenerCamino(2,xor(this.txtEmisor.getText(), this.txtReceptor.getText()),this.txtEmisor.getText());
             Object[] arreglo;
+            Object[] arreglo2;
+            arreglo2=obtenerCamino(1,xor(this.txtEmisor.getText(), this.txtReceptor.getText()),this.txtEmisor.getText()).toArray();
+            int[] camino=new int[arreglo2.length];
             arreglo = caminos.toArray();
             for(int i = 0; i < arreglo.length; i++) {
                 this.txtRutas.append(arreglo[i].toString());
                 this.txtRutas.append("\n");
             }
+            for(int i = 0; i < arreglo2.length; i++) {
+                camino[i]=Integer.parseInt (arreglo2[i].toString());
+            }
+            /////////////////////////////////////checar
+            cubes= new Cubes(camino);
+            cubes.setVisible(true);
+            cubes.setSize(this.jpCubos.getWidth(), this.jpCubos.getHeight());
+            cubes.setLocation(0, 0);
+            this.jpCubos.add(cubes);
+            ///////////////////////////////////////
         }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
@@ -331,7 +346,7 @@ public class pantallaPrincipal extends javax.swing.JFrame {
         String elegido = "";
         int size;
         if (tipo == 1) {
-            elegido = caminos.get((int) (Math.random() * (caminos.size() + 1)));
+            elegido = caminos.get((int) (Math.random() * (caminos.size() )));
             size = 1;
         } else {
             elegido = caminos.get(0);

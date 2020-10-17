@@ -3,36 +3,59 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Main;
+package Cubes;
 
-import java.awt.*;
-import java.awt.geom.*;
-import java.awt.image.*;
-import javax.swing.*;
-
+import java.awt.Color;
+import javax.swing.JFrame;
 
 /**
  *
  * @author pedro
  */
-public class DrawCubes extends javax.swing.JFrame {
+public class CubesJFrame extends javax.swing.JFrame {
 
     /**
-     * Creates new form DrawCubes
+     * Creates new form CubesJFrame
      */
-    public DrawCubes() {
+    public CubesJFrame() {
         initComponents();
+        this.setTitle("Simulacion de hipercubos");
+        this.setVisible(true);
         this.setLayout(null);
-        this.getContentPane().setBackground(Color.MAGENTA);
         this.setSize(900, 600);
+        this.getContentPane().setBackground(Color.WHITE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        int[] vector = {0, 1, 3, 7,15, 13, 12, 8};
+        //int[] vector = {8, 12, 13, 15,11, 3, 1, 0};
+        //Cubes cubes = new Cubes();
+        Cubes cubes = new Cubes(vector);
+
+        cubes.setVisible(true);
+        cubes.setSize(850, 550);
+        cubes.setLocation(0, 0);
+
+        this.add(cubes);
         
+        this.setLocationRelativeTo(null);
     }
-    public void paint(Graphics g){
-        super.paint(g);
-        Graphics2D g2d = ( Graphics2D ) g;
-        g2d.setPaint(Color.GREEN);
-        g2d.setStroke( new BasicStroke( 6.0f ) );
-        g2d.draw( new Line2D.Double( 0,  0,900,600 ) );
+    public CubesJFrame(int[] camino_hipercubo) {
+        initComponents();
+        this.setTitle("Simulacion de hipercubos");
+        this.setVisible(true);
+        this.setLayout(null);
+        this.setSize(900, 600);
+        this.getContentPane().setBackground(Color.WHITE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        Cubes cubes = new Cubes(camino_hipercubo);
+
+        cubes.setVisible(true);
+        cubes.setSize(850, 550);
+        cubes.setLocation(0, 0);
+
+        this.add(cubes);
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -77,20 +100,20 @@ public class DrawCubes extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DrawCubes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CubesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(DrawCubes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CubesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(DrawCubes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CubesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(DrawCubes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CubesJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new DrawCubes().setVisible(true);
+                new CubesJFrame().setVisible(true);
             }
         });
     }

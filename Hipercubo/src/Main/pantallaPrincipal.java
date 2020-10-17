@@ -6,6 +6,7 @@
 package Main;
 
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -192,6 +193,17 @@ public class pantallaPrincipal extends javax.swing.JFrame {
 
     private void btnEnviarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnviarActionPerformed
         // TODO add your handling code here:
+        this.txtRutas.setText("");
+        if(this.txtEmisor.getText().length()<4 ||this.txtReceptor.getText().length()<4){
+        }else{
+            ArrayList<String> caminos=obtenerCamino(2,xor(this.txtEmisor.getText(), this.txtReceptor.getText()),this.txtEmisor.getText());
+            Object[] arreglo;
+            arreglo = caminos.toArray();
+            for(int i = 0; i < arreglo.length; i++) {
+                this.txtRutas.append(arreglo[i].toString());
+                this.txtRutas.append("\n");
+            }
+        }
     }//GEN-LAST:event_btnEnviarActionPerformed
 
     private void txtEmisorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmisorKeyTyped
@@ -207,8 +219,9 @@ public class pantallaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "solo se permiten direcciones de 4 digitos y que sean 0's o 1's");
         }else{
             evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "solo se permiten direcciones de 4 digitos");
+            if(this.txtReceptor.getText().length()==4){
+            this.btnEnviar.requestFocus();
+            }else{this.txtReceptor.requestFocus();}
             }
         }else if( validar=='8'||validar=='9'||validar=='2' || validar=='3'||validar=='4' || validar=='5'||validar=='6' || validar=='7'){
             evt.consume();
@@ -230,8 +243,7 @@ public class pantallaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(rootPane, "solo se permiten direcciones de 4 digitos y que sean 0's o 1's");
         }else{
             evt.consume();
-            Toolkit.getDefaultToolkit().beep();
-            JOptionPane.showMessageDialog(rootPane, "solo se permiten direcciones de 4 digitos");
+            this.btnEnviar.requestFocus();
             }
         }else if( validar=='8'||validar=='9'||validar=='2' || validar=='3'||validar=='4' || validar=='5'||validar=='6' || validar=='7'){
             evt.consume();
@@ -274,7 +286,201 @@ public class pantallaPrincipal extends javax.swing.JFrame {
             }
         });
     }
+    public static String xor(String emisor,String receptor){
+        String resultado="";
+        char[] emisorc = emisor.toCharArray();
+        char[] receptorc = receptor.toCharArray();
+        for(int i=0;i<4;i++){
+           if(emisorc[i]==receptorc[i]){
+               resultado=resultado.concat("0");
+           }else{
+               resultado = resultado.concat("1");
+           }
+        }
+        
+        return resultado;
+    }
+    public static ArrayList obtenerCamino(int tipo,String path,String emisor){
+        /*
+        devuelve un array con todos los nodos a visitar.
+        */
+        ArrayList camino = new ArrayList();
+        camino=aDecimal(tipo,path,emisor);
+        
+        return camino;
+    }
+    private static ArrayList aDecimal(int tipo, String path, String emisor) {
+         /*
+        salto diagonal    vertical    horizontal
+        1     1           1           1
+        devuelve un array con todos los nodos a visitar o todos los caminos si se elige un tipo diferente de 1.
+        path ejemplo: "sdh" (segun la letra cambia el digito y posteriormente se guarda en un array)
+        emisor ejemplo: 0110
+        receptor ejemplo: 1011
+        emisor              0110->6
+                            s
+                            1110->14
+                             d
+                            1010->10
+                               h
+        receptor            1011->11
+        */
+        ArrayList<String> caminos = generarCaminos(path);
+        ArrayList caminosDecimal = new ArrayList();
+        long numeroDecimal;
+        String elegido = "";
+        int size;
+        if (tipo == 1) {
+            elegido = caminos.get((int) (Math.random() * (caminos.size() + 1)));
+            size = 1;
+        } else {
+            elegido = caminos.get(0);
+            size = caminos.size();
+            
+        }
+        ArrayList camino = new ArrayList();
+        for (int k = 0; k < size; k++) {
+            numeroDecimal = Long.parseLong(emisor, 2);
+            camino.add(numeroDecimal);
+            char[] elegidochar = elegido.toCharArray();
+            String aux = "";
+            char[] direccion = emisor.toCharArray();
+            for (int i = 0; i < elegidochar.length; i++) {
+                switch (elegidochar[i]) {
+                    case 's':
+                        if (direccion[0] == '1') {
+                            direccion[0] = '0';
+                        } else {
+                            direccion[0] = '1';
+                        }
 
+                        for (int j = 0; j < 4; j++) {
+                            aux = aux.concat(direccion[j] + "");
+                        }
+                        numeroDecimal = Long.parseLong(aux, 2);
+                        camino.add(numeroDecimal);
+                        aux = "";
+                        break;
+                    case 'd':
+                        if (direccion[1] == '1') {
+                            direccion[1] = '0';
+                        } else {
+                            direccion[1] = '1';
+                        }
+
+                        for (int j = 0; j < 4; j++) {
+                            aux = aux.concat(direccion[j] + "");
+                        }
+                        numeroDecimal = Long.parseLong(aux, 2);
+                        camino.add(numeroDecimal);
+                        aux = "";
+                        break;
+                    case 'v':
+                        if (direccion[2] == '1') {
+                            direccion[2] = '0';
+                        } else {
+                            direccion[2] = '1';
+                        }
+
+                        for (int j = 0; j < 4; j++) {
+                            aux = aux.concat(direccion[j] + "");
+                        }
+                        numeroDecimal = Long.parseLong(aux, 2);
+                        camino.add(numeroDecimal);
+                        aux = "";
+                        break;
+                    case 'h':
+                        if (direccion[3] == '1') {
+                            direccion[3] = '0';
+                        } else {
+                            direccion[3] = '1';
+                        }
+
+                        for (int j = 0; j < 4; j++) {
+                            aux = aux.concat(direccion[j] + "");
+                        }
+                        numeroDecimal = Long.parseLong(aux, 2);
+                        camino.add(numeroDecimal);
+                        aux = "";
+                        break;
+                    default:
+                        break;
+                }
+            }
+            if (tipo != 1 && k+1 <caminos.size()) {
+                caminosDecimal.add(k, camino.clone());
+                elegido = caminos.get(k+1);
+                camino.clear();
+            }else if(tipo != 1){
+                caminosDecimal.add(k, camino.clone());
+            }
+        }
+        if (tipo == 1) {
+            return camino;
+        } else {
+            return caminosDecimal;
+        }
+    }
+
+    public static ArrayList generarCaminos(String valor) {
+        /*
+        salto diagonal    vertical    horizontal
+        1     1           1           1
+        devuelve un array con todos los posibles caminos mediante una semilla
+        path ejemplo: "1101" (segun la posicion del 1 se cambia a una letra ignorando los 0's y posteriormente se guarda en un array)
+        1101->s101
+        s101->sd01
+        sd01->sd 1
+        sd 1->sd h
+        path con formato direccion: sdh
+        se crean las permutaciones de sdh y se guardan en un arraylist que regresado
+        */
+        ArrayList<String> caminos = new ArrayList<>();
+        String path2 = "";
+        char[] path = valor.toCharArray();
+        if (path[0] == '1') {
+            path2 = path2 + 's';
+        }
+        if (path[1] == '1') {
+            path2 = path2 + 'd';
+        }
+        if (path[2] == '1') {
+            path2 = path2 + 'v';
+        }
+        if (path[3] == '1') {
+            path2 = path2 + 'h';
+        }
+        permuta(path2, caminos);
+        return caminos;
+    }
+
+    private static void permuta(String str, ArrayList caminos) {
+        StringBuffer strBuf = new StringBuffer(str);
+        doPerm(strBuf, str.length(), caminos);
+        int i = 0;
+    }
+
+    private static void doPerm(StringBuffer str, int index, ArrayList caminos) {
+
+        if (index <= 0) {
+            caminos.add(str.toString());
+        } else { //recursively solve this by placing all other chars at current first pos 
+            doPerm(str, index - 1, caminos);
+            int currPos = str.length() - index;
+            for (int i = currPos + 1; i < str.length(); i++) {//start swapping all other chars with current first char 
+                swap(str, currPos, i);
+                doPerm(str, index - 1, caminos);
+                swap(str, i, currPos);//restore back my string buffer 
+            }
+        }
+    }
+
+    private static void swap(StringBuffer str, int pos1, int pos2) {
+        char t1 = str.charAt(pos1);
+        str.setCharAt(pos1, str.charAt(pos2));
+        str.setCharAt(pos2, t1);
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEnviar;
     private javax.swing.JLabel jLabel1;

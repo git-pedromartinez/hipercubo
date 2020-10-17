@@ -130,7 +130,7 @@ public class Cubes extends JPanel {
         int arista_inicial = camino[0];
         int arista_final = camino[camino.length - 1];
 
-        g2d.setPaint(Color.RED);
+        g2d.setPaint(Color.CYAN);
         g2d.setStroke(new BasicStroke(9.0f));
 
         for (int i = 1; i < camino.length; i++) {
@@ -139,14 +139,40 @@ public class Cubes extends JPanel {
             if (arista_inicial <= 7 && arista_final <= 7) {
                 //cuboA
                 g2d.draw(new Line2D.Double(cuboA[arista_inicial].getX(), cuboA[arista_inicial].getY(), cuboA[arista_final].getX(), cuboA[arista_final].getY()));
-                arista_inicial = camino[i];
-            } else if (arista_inicial >= 7 && arista_final >= 7) {
+
+            } else if (arista_inicial >= 8 && arista_final >= 8) {
                 //cuboB
-                //g2d.draw(new Line2D.Double(cuboA[arista_inicial].getX(), cuboA[arista_inicial].getY(), cuboA[arista_final].getX(), cuboA[arista_final].getY()));
-                arista_inicial = camino[i];
+                int diferencia = 8;
+                g2d.draw(new Line2D.Double(cuboB[arista_inicial - diferencia].getX(), cuboB[arista_inicial - diferencia].getY(), cuboB[arista_final - diferencia].getX(), cuboB[arista_final - diferencia].getY()));
+
             } else {
                 //salto
+                System.out.println("Salto");
+                int alto_arco = 200;
+
+                int arista_actual = camino[i];
+                if (arista_actual >= 8) {
+                    arista_actual = arista_actual - 8;
+                }
+                
+                if (arista_actual <= 3) {
+                        System.out.println(" de A a B por arriba");
+                        g2d.draw(new QuadCurve2D.Float(
+                                cuboA[arista_actual].getX(), cuboA[arista_actual].getY(),
+                                cuboA[arista_actual].getX() + ((cuboB[arista_actual].getX() - cuboA[arista_actual].getX()) / 2), cuboA[arista_actual].getY()
+                                - alto_arco,
+                                cuboB[arista_actual].getX(), cuboB[arista_actual].getY()));
+                    } else {
+                        System.out.println(" de A a B por abajo");
+                        g2d.draw(new QuadCurve2D.Float(
+                                cuboA[arista_actual].getX(), cuboA[arista_actual].getY(),
+                                cuboA[arista_actual].getX() + ((cuboB[arista_actual].getX() - cuboA[arista_actual].getX()) / 2), cuboA[arista_actual].getY()
+                                + alto_arco,
+                                cuboB[arista_actual].getX(), cuboB[arista_actual].getY()));
+                    }
+
             }
+            arista_inicial = camino[i];
         }
     }
 
@@ -232,27 +258,27 @@ public class Cubes extends JPanel {
         int longitud_vertice = 125;
 
         Coordenadas cuboA[] = new Coordenadas[8];
-        cuboA[0] = new Coordenadas("0", x, y);//arista de cubo A: 0 000=0
-        cuboA[1] = new Coordenadas("1", x + longitud_vertice, y);//arista de cubo A: 0 001=1
-        cuboA[2] = new Coordenadas("2", x + longitud_vertice / 2, y + longitud_vertice / 2);//arista de cubo A: 0 010=2
-        cuboA[3] = new Coordenadas("3", cuboA[2].getX() + longitud_vertice, cuboA[2].getY());//arista de cubo A: 0 011=3
-        cuboA[4] = new Coordenadas("4", x, y + longitud_vertice);//arista de cubo A: 0 100=4
-        cuboA[5] = new Coordenadas("5", x + longitud_vertice, y + longitud_vertice);//arista de cubo A: 0 101=5
-        cuboA[6] = new Coordenadas("6", cuboA[2].getX(), cuboA[2].getY() + longitud_vertice);//arista de cubo A: 0 110=6
-        cuboA[7] = new Coordenadas("7", cuboA[2].getX() + longitud_vertice, cuboA[2].getY() + longitud_vertice);//arista de cubo A: 0 111=7
+        cuboA[0] = new Coordenadas("0"+"=0"+binarioDeTresPosiciones(entero_a_binario(0)), x, y);//arista de cubo A: 0 000=0
+        cuboA[1] = new Coordenadas("1"+"=0"+binarioDeTresPosiciones(entero_a_binario(1)), x + longitud_vertice, y);//arista de cubo A: 0 001=1
+        cuboA[2] = new Coordenadas("2"+"=0"+binarioDeTresPosiciones(entero_a_binario(2)), x + longitud_vertice / 2, y + longitud_vertice / 2);//arista de cubo A: 0 010=2
+        cuboA[3] = new Coordenadas("3"+"=0"+binarioDeTresPosiciones(entero_a_binario(3)), cuboA[2].getX() + longitud_vertice, cuboA[2].getY());//arista de cubo A: 0 011=3
+        cuboA[4] = new Coordenadas("4"+"=0"+binarioDeTresPosiciones(entero_a_binario(4)), x, y + longitud_vertice);//arista de cubo A: 0 100=4
+        cuboA[5] = new Coordenadas("5"+"=0"+binarioDeTresPosiciones(entero_a_binario(5)), x + longitud_vertice, y + longitud_vertice);//arista de cubo A: 0 101=5
+        cuboA[6] = new Coordenadas("6"+"=0"+binarioDeTresPosiciones(entero_a_binario(6)), cuboA[2].getX(), cuboA[2].getY() + longitud_vertice);//arista de cubo A: 0 110=6
+        cuboA[7] = new Coordenadas("7"+"=0"+binarioDeTresPosiciones(entero_a_binario(7)), cuboA[2].getX() + longitud_vertice, cuboA[2].getY() + longitud_vertice);//arista de cubo A: 0 111=7
         this.cuboA = cuboA;
 
         x = x + 550;
         //y = 100;
         Coordenadas cuboB[] = new Coordenadas[8];
-        cuboB[0] = new Coordenadas("8", x, y);//arista de cubo B: 0 000=0
-        cuboB[1] = new Coordenadas("9", x + longitud_vertice, y);//arista de cubo B: 0 001=1
-        cuboB[2] = new Coordenadas("10", x + longitud_vertice / 2, y + longitud_vertice / 2);//arista de cubo B: 0 010=2
-        cuboB[3] = new Coordenadas("11", cuboB[2].getX() + longitud_vertice, cuboB[2].getY());//arista de cubo B: 0 011=3
-        cuboB[4] = new Coordenadas("12", x, y + longitud_vertice);//arista de cubo B: 0 100=4
-        cuboB[5] = new Coordenadas("13", x + longitud_vertice, y + longitud_vertice);//arista de cubo B: 0 101=5
-        cuboB[6] = new Coordenadas("14", cuboB[2].getX(), cuboB[2].getY() + longitud_vertice);//arista de cubo B: 0 110=6
-        cuboB[7] = new Coordenadas("15", cuboB[2].getX() + longitud_vertice, cuboB[2].getY() + longitud_vertice);//arista de cubo B: 0 111=7
+        cuboB[0] = new Coordenadas("8"+"=1"+binarioDeTresPosiciones(entero_a_binario(0)), x, y);//arista de cubo B: 0 000=0
+        cuboB[1] = new Coordenadas("9"+"=1"+binarioDeTresPosiciones(entero_a_binario(1)), x + longitud_vertice, y);//arista de cubo B: 0 001=1
+        cuboB[2] = new Coordenadas("10"+"=1"+binarioDeTresPosiciones(entero_a_binario(2)), x + longitud_vertice / 2, y + longitud_vertice / 2);//arista de cubo B: 0 010=2
+        cuboB[3] = new Coordenadas("11"+"=1"+binarioDeTresPosiciones(entero_a_binario(3)), cuboB[2].getX() + longitud_vertice, cuboB[2].getY());//arista de cubo B: 0 011=3
+        cuboB[4] = new Coordenadas("12"+"=1"+binarioDeTresPosiciones(entero_a_binario(4)), x, y + longitud_vertice);//arista de cubo B: 0 100=4
+        cuboB[5] = new Coordenadas("13"+"=1"+binarioDeTresPosiciones(entero_a_binario(5)), x + longitud_vertice, y + longitud_vertice);//arista de cubo B: 0 101=5
+        cuboB[6] = new Coordenadas("14"+"=1"+binarioDeTresPosiciones(entero_a_binario(6)), cuboB[2].getX(), cuboB[2].getY() + longitud_vertice);//arista de cubo B: 0 110=6
+        cuboB[7] = new Coordenadas("15"+"=1"+binarioDeTresPosiciones(entero_a_binario(7)), cuboB[2].getX() + longitud_vertice, cuboB[2].getY() + longitud_vertice);//arista de cubo B: 0 111=7
         this.cuboB = cuboB;
 
         pintarSaltos(g2d, this.cuboA, this.cuboB);
@@ -273,7 +299,8 @@ public class Cubes extends JPanel {
         frame.getContentPane().setBackground(Color.WHITE);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        int[] vector = {0, 1, 3, 7, 15, 13, 12, 8};
+        int[] vector = {0, 1, 3, 7,15, 13, 12, 8};
+        //int[] vector = {8, 12, 13, 15,11, 3, 1, 0};
         //Cubes cubes = new Cubes();
         Cubes cubes = new Cubes(vector);
 
